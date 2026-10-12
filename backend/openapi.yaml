@@ -1,0 +1,212 @@
+openapi: 3.0.3
+info:
+  title: MobyAds Backend Contract M2-M3
+  version: 1.0.0
+servers:
+  - url: https://api-dev.mobyads.com/api/v1
+    description: dev
+  - url: https://api.mobyads.com/api/v1
+    description: prod
+paths:
+  /auth/register:
+    post:
+      summary: Register (PDF §5)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, email, password]
+              properties:
+                name: { type: string }
+                email: { type: string, format: email }
+                phone: { type: string }
+                country: { type: string }
+                password: { type: string }
+      responses:
+        '200':
+          description: '{ token, refreshToken, user }'
+  /auth/login:
+    post:
+      summary: Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email: { type: string }
+                password: { type: string }
+      responses:
+        '200':
+          description: '{ token, refreshToken, user }'
+  /auth/refresh:
+    post:
+      summary: Refresh user JWT
+      responses:
+        '200':
+          description: '{ token }'
+  /auth/me:
+    get:
+      summary: Current user incl accountStatus + verificationStatus
+      responses:
+        '200':
+          description: User
+  /quizzes/today:
+    get:
+      summary: Public questions WITHOUT correct answer (PDF §7)
+      responses:
+        '200':
+          description: '{ questions: PublicQuestion[] }'
+  /quizzes/submit:
+    post:
+      summary: Submit answer, server validates + credits ledger idempotently
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [questionId, selectedIndex, idempotencyKey]
+              properties:
+                questionId: { type: string, format: uuid }
+                selectedIndex: { type: integer, minimum: 0, maximum: 3 }
+                idempotencyKey: { type: string }
+      responses:
+        '200':
+          description: '{ isCorrect, rewardTxnId, wallet }'
+  /reward-sessions:
+    post:
+      summary: Create opaque session for AdMob custom-data (PDF §11-12)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [taskType]
+              properties:
+                taskType: { type: string, enum: [MCQ, REWARDED_AD] }
+      responses:
+        '200':
+          description: '{ sessionId }'
+  /ads/ssv-callback:
+    post:
+      summary: AdMob server-to-server SSV, verifies signature + uniqueness
+      responses:
+        '200':
+          description: '{ ok: true }'
+  /wallet:
+    get:
+      summary: Derived from ledger (PDF §8, §14)
+      responses:
+        '200':
+          description: '{ available, pending, totalEarned, totalWithdrawn, currency }'
+  /wallet/transactions:
+    get:
+      summary: Ledger history
+      responses:
+        '200':
+          description: '{ transactions: RewardTransaction[] }'
+  /withdrawals:
+    get:
+      summary: User withdrawal history
+      responses:
+        '200':
+          description: '{ withdrawals: Withdrawal[] }'
+    post:
+      summary: Request withdrawal with idempotencyKey (PDF §16)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [amount, payoutMethodId, idempotencyKey]
+              properties:
+                amount: { type: number }
+                payoutMethodId: { type: string }
+                idempotencyKey: { type: string }
+      responses:
+        '200':
+          description: '{ withdrawal }'
+  /config/public:
+    get:
+      summary: Server-driven limits/rewards (PDF §18)
+      responses:
+        '200':
+          description: '{ minWithdrawal, dailyLimit, taskCooldownMinutes, mcqCount, rewardMcq, rewardAd }'
+  /admin/users:
+    get:
+      summary: Admin user search (PDF §18)
+      responses:
+        '200':
+          description: '{ users: User[] }'
+  /admin/questions:
+    get:
+      summary: Admin MCQ CRUD incl correct answer (admin-only field)
+      responses:
+        '200':
+          description: '{ questions: AdminQuestion[] }'
+    post:
+      summary: Create/disable MCQ + configure reward
+      responses:
+        '200':
+          description: '{ question }'
+  /admin/withdrawals/{id}/decision:
+    post:
+      summary: approve/reject -> PROCESSING/PAID/FAILED handled by provider webhook
+      responses:
+        '200':
+          description: '{ withdrawal }'
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        name: { type: string }
+        email: { type: string }
+        phone: { type: string }
+        country: { type: string }
+        accountStatus: { type: string, enum: [NORMAL, REVIEW, BLOCKED] }
+        verificationStatus: { type: string, enum: [VERIFIED, UNVERIFIED] }
+        createdAt: { type: string, format: date-time }
+    PublicQuestion:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        text: { type: string }
+        options: { type: array, items: { type: string }, minItems: 4, maxItems: 4 }
+        category: { type: string }
+        sourceName: { type: string }
+        expiresAt: { type: string, format: date-time }
+        rewardAmount: { type: number }
+        rewardCurrency: { type: string }
+    RewardTransaction:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        userId: { type: string, format: uuid }
+        sourceType: { type: string, enum: [MCQ, AD_REWARD, DAILY, REFERRAL, WITHDRAWAL, COUPON] }
+        sourceId: { type: string }
+        amount: { type: number }
+        currency: { type: string }
+        status: { type: string, enum: [PENDING, AVAILABLE, WITHDRAWN, REVERSED, FAILED] }
+        availableAt: { type: string, format: date-time }
+        createdAt: { type: string, format: date-time }
+    Withdrawal:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        userId: { type: string, format: uuid }
+        amount: { type: number }
+        currency: { type: string }
+        status:
+          type: string
+          enum: [PENDING, APPROVED, PROCESSING, PAID, FAILED, REJECTED]
+        providerReference: { type: string, nullable: true }
+        payoutType: { type: string, enum: [BANK_ACCOUNT, PAYTM] }
