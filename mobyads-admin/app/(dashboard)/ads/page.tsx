@@ -109,7 +109,7 @@ export default function AdsPage() {
             <CardTitle className="text-xs font-semibold uppercase tracking-wider text-slate-500">
               Interstitial Transitions
             </CardTitle>
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-neutral-100 text-neutral-900">
               <Tv className="h-3.5 w-3.5" />
             </div>
           </CardHeader>
@@ -124,7 +124,7 @@ export default function AdsPage() {
             <CardTitle className="text-xs font-semibold uppercase tracking-wider text-slate-500">
               Active Placements
             </CardTitle>
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-purple-50 text-purple-600">
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-neutral-100 text-neutral-700">
               <ShieldCheck className="h-3.5 w-3.5" />
             </div>
           </CardHeader>

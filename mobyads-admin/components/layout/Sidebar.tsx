@@ -93,7 +93,7 @@ export function Sidebar({ isOpen = false, onClose }: SidebarProps) {
         {/* Brand Header */}
         <div className="flex h-16 items-center justify-between border-b border-slate-200 px-6">
           <Link href="/dashboard" className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-600 text-white shadow-xs">
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-neutral-900 text-white shadow-xs">
               <ShieldCheck className="h-5 w-5" />
             </div>
             <div>
@@ -135,14 +135,14 @@ export function Sidebar({ isOpen = false, onClose }: SidebarProps) {
                   className={cn(
                     "flex items-center gap-3 rounded-lg px-3.5 py-2.5 text-sm font-medium transition-colors",
                     isActive
-                      ? "bg-blue-50 text-blue-700 font-semibold shadow-2xs border-l-2 border-blue-600"
+                      ? "bg-neutral-100 text-black font-semibold shadow-2xs border-l-2 border-neutral-900"
                       : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                   )}
                 >
                   <Icon
                     className={cn(
                       "h-4 w-4 shrink-0 transition-colors",
-                      isActive ? "text-blue-600" : "text-slate-400"
+                      isActive ? "text-neutral-900" : "text-slate-400"
                     )}
                   />
                   {item.title}

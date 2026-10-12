@@ -143,7 +143,7 @@ function LoginForm() {
           {/* Submit Button */}
           <Button
             type="submit"
-            className="w-full h-9 bg-blue-600 hover:bg-blue-700 font-semibold text-xs sm:text-sm text-white shadow-xs transition-colors"
+            className="w-full h-9 bg-neutral-900 hover:bg-black font-semibold text-xs sm:text-sm text-white shadow-xs transition-colors"
             disabled={isLoading}
           >
             {isLoading ? (

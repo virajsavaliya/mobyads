@@ -4,4 +4,5 @@ Inherits root `mobyad/DESIGN.md` verbatim for brand colors, status vocabulary, t
 
 - Shell: left sidebar + top bar + content; shared table/filter/drawer (`components/shared/`, `components/ui/`).
 - Density: compact tables, filter chips, row expand for IDs (ledger audit); review card pattern for withdrawals (amount, user status, risk; history in expander).
-- StatusBadge: add missing AVAILABLE / WITHDRAWN / REVERSED / PROCESSING / PAID cases per root mapping (currently default to neutral).
+- StatusBadge: covers AVAILABLE / WITHDRAWN / REVERSED / PROCESSING / PAID / EXPIRED / DISABLED per root mapping.
+- Monochrome: brand blues/purples/indigo/sky remapped to neutral/black; emerald/amber/red kept for statuses only (same exception as app).

@@ -79,9 +79,9 @@ export function TopBar({ onMenuClick }: TopBarProps) {
       <div className="flex items-center gap-3">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className="flex items-center gap-2.5 rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 hover:bg-slate-50 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-1 cursor-pointer">
-              <Avatar className="h-7 w-7 bg-blue-600">
-                <AvatarFallback className="bg-blue-600 text-[11px] font-bold text-white">
+            <button className="flex items-center gap-2.5 rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 hover:bg-slate-50 transition-colors focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-1 cursor-pointer">
+              <Avatar className="h-7 w-7 bg-neutral-900">
+                <AvatarFallback className="bg-neutral-900 text-[11px] font-bold text-white">
                   AD
                 </AvatarFallback>
               </Avatar>

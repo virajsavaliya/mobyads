@@ -426,7 +426,7 @@ export default function MCQPage() {
             <h1 className="text-2xl font-bold tracking-tight text-slate-900">
               MCQ Question Bank
             </h1>
-            <span className="rounded-full bg-blue-50 px-2.5 py-0.5 text-xs font-bold text-blue-700 border border-blue-200">
+            <span className="rounded-full bg-neutral-100 px-2.5 py-0.5 text-xs font-bold text-black border border-neutral-300">
               {questions.length} questions
             </span>
           </div>
@@ -456,7 +456,7 @@ export default function MCQPage() {
               setParseErrors([]);
               setHasParsed(false);
             }}
-            className="h-9 bg-blue-600 hover:bg-blue-700 font-semibold text-xs text-white shadow-xs"
+            className="h-9 bg-neutral-900 hover:bg-black font-semibold text-xs text-white shadow-xs"
           >
             <UploadCloud className="mr-2 h-4 w-4" />
             Upload Questions (JSON)
@@ -672,7 +672,7 @@ export default function MCQPage() {
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto p-6">
           <DialogHeader className="pb-2 border-b border-slate-100">
             <div className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-neutral-100 text-neutral-900">
                 <UploadCloud className="h-4 w-4" />
               </div>
               <div>
@@ -691,13 +691,13 @@ export default function MCQPage() {
             <div className="rounded-lg border border-slate-200 bg-slate-50/70 p-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 text-xs font-bold text-slate-800">
-                  <FileCode className="h-4 w-4 text-blue-600" />
+                  <FileCode className="h-4 w-4 text-neutral-900" />
                   Expected JSON Schema Format
                 </div>
                 <button
                   type="button"
                   onClick={() => setShowSchemaHint(!showSchemaHint)}
-                  className="text-xs text-blue-600 hover:underline font-medium cursor-pointer"
+                  className="text-xs text-neutral-900 hover:underline font-medium cursor-pointer"
                 >
                   {showSchemaHint ? "Hide example" : "View schema example"}
                 </button>
@@ -757,7 +757,7 @@ export default function MCQPage() {
                       setUploadJsonText(largeJson);
                       handleParseJson(largeJson);
                     }}
-                    className="h-7 text-[11px] text-blue-700 border-blue-200 bg-blue-50/50 hover:bg-blue-100 cursor-pointer"
+                    className="h-7 text-[11px] text-black border-neutral-300 bg-neutral-100/50 hover:bg-neutral-200 cursor-pointer"
                   >
                     <Sparkles className="h-3 w-3 mr-1" />
                     Load 500+ Batch
@@ -775,15 +775,15 @@ export default function MCQPage() {
                 onDrop={handleFileDrop}
                 className={`flex flex-col items-center justify-center w-full h-28 border-2 border-dashed rounded-xl cursor-pointer transition-colors ${
                   isDragging
-                    ? "border-blue-500 bg-blue-50/60"
+                    ? "border-neutral-700 bg-neutral-100/60"
                     : "border-slate-300 bg-slate-50/50 hover:bg-slate-100/70"
                 }`}
               >
                 <label className="flex flex-col items-center justify-center w-full h-full cursor-pointer">
                   <div className="flex flex-col items-center justify-center pt-2 pb-2">
-                    <FileUp className={`w-7 h-7 mb-1.5 ${isDragging ? "text-blue-600" : "text-slate-400"}`} />
+                    <FileUp className={`w-7 h-7 mb-1.5 ${isDragging ? "text-neutral-900" : "text-slate-400"}`} />
                     <p className="text-xs text-slate-600 font-medium">
-                      <span className="font-semibold text-blue-600">Click to browse</span> or drag and drop .json file
+                      <span className="font-semibold text-neutral-900">Click to browse</span> or drag and drop .json file
                     </p>
                     <p className="text-[11px] text-slate-400 mt-0.5">UTF-8 Encoded JSON Array</p>
                   </div>
@@ -818,7 +818,7 @@ export default function MCQPage() {
                       setSkipDuplicates(e.target.checked);
                       if (uploadJsonText.trim()) handleParseJson(uploadJsonText);
                     }}
-                    className="h-3.5 w-3.5 rounded border-slate-300 text-blue-600"
+                    className="h-3.5 w-3.5 rounded border-slate-300 text-neutral-900"
                   />
                   Skip duplicate questions on import
                 </label>
@@ -918,7 +918,7 @@ export default function MCQPage() {
               size="sm"
               onClick={handleConfirmImport}
               disabled={parsedValidQuestions.length === 0}
-              className="bg-blue-600 hover:bg-blue-700 font-semibold text-xs text-white"
+              className="bg-neutral-900 hover:bg-black font-semibold text-xs text-white"
             >
               Confirm Import ({parsedValidQuestions.length} Questions)
             </Button>
@@ -1139,7 +1139,7 @@ function EditQuestionDialog({
             <Button
               type="submit"
               size="sm"
-              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs"
+              className="bg-neutral-900 hover:bg-black text-white font-semibold text-xs"
             >
               Save Changes
             </Button>

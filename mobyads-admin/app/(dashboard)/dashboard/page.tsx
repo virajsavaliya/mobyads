@@ -40,8 +40,8 @@ const RECENT_ACTIVITIES: ActivityItem[] = [
   {
     id: "act_2",
     icon: FileQuestion,
-    iconColor: "text-blue-600",
-    bgColor: "bg-blue-50",
+    iconColor: "text-neutral-900",
+    bgColor: "bg-neutral-100",
     title: "1,200 questions uploaded",
     subtitle: "Batch ingestion to General & Science categories completed",
     timeAgo: "45 mins ago",
@@ -58,8 +58,8 @@ const RECENT_ACTIVITIES: ActivityItem[] = [
   {
     id: "act_4",
     icon: CheckCircle2,
-    iconColor: "text-sky-600",
-    bgColor: "bg-sky-50",
+    iconColor: "text-neutral-700",
+    bgColor: "bg-neutral-100",
     title: "Paytm withdrawal approved — ₹100.00",
     subtitle: "Instant mobile wallet disbursement executed successfully",
     timeAgo: "2 hrs ago",
@@ -67,8 +67,8 @@ const RECENT_ACTIVITIES: ActivityItem[] = [
   {
     id: "act_5",
     icon: Tv,
-    iconColor: "text-purple-600",
-    bgColor: "bg-purple-50",
+    iconColor: "text-neutral-700",
+    bgColor: "bg-neutral-100",
     title: "SSV rewarded ad verified",
     subtitle: "Cryptographic callback validated from AdMob network",
     timeAgo: "3 hrs ago",
@@ -98,7 +98,7 @@ export default function DashboardOverviewPage() {
       changeType: "positive",
       description: "Registered participants",
       icon: Users,
-      iconBg: "bg-blue-50 text-blue-600",
+      iconBg: "bg-neutral-100 text-neutral-900",
     },
     {
       title: "Active Today",
@@ -125,7 +125,7 @@ export default function DashboardOverviewPage() {
       changeType: "positive",
       description: "Bank & Paytm transfers",
       icon: CreditCard,
-      iconBg: "bg-purple-50 text-purple-600",
+      iconBg: "bg-neutral-100 text-neutral-700",
     },
   ];
 
@@ -212,14 +212,14 @@ export default function DashboardOverviewPage() {
                 <Link
                   key={item.id}
                   href={item.href}
-                  className="text-xs font-semibold text-slate-800 hover:text-blue-700 underline-offset-2 hover:underline"
+                  className="text-xs font-semibold text-slate-800 hover:text-black underline-offset-2 hover:underline"
                 >
                   {item.title} →
                 </Link>
               ))}
               <Link
                 href="/fraud"
-                className="text-xs font-semibold text-slate-800 hover:text-blue-700 underline-offset-2 hover:underline"
+                className="text-xs font-semibold text-slate-800 hover:text-black underline-offset-2 hover:underline"
               >
                 {fraudCount === 0
                   ? "No fraud alerts →"
@@ -292,74 +292,74 @@ export default function DashboardOverviewPage() {
           <CardContent className="space-y-2 flex-1">
             <Link
               href="/withdrawals"
-              className="flex items-center justify-between p-3 rounded-lg border border-slate-100 bg-slate-50/70 hover:bg-blue-50/60 hover:border-blue-200 transition-colors group"
+              className="flex items-center justify-between p-3 rounded-lg border border-slate-100 bg-slate-50/70 hover:bg-neutral-100/60 hover:border-neutral-300 transition-colors group"
             >
               <div className="flex items-center gap-3">
                 <div className="flex h-8 w-8 items-center justify-center rounded-md bg-amber-100 text-amber-700">
                   <Clock className="h-4 w-4" />
                 </div>
                 <div>
-                  <div className="text-xs font-bold text-slate-900 group-hover:text-blue-700">
+                  <div className="text-xs font-bold text-slate-900 group-hover:text-black">
                     Withdrawal Approvals
                   </div>
                   <div className="text-[11px] text-slate-500">14 pending payouts</div>
                 </div>
               </div>
-              <ArrowUpRight className="h-4 w-4 text-slate-400 group-hover:text-blue-600" />
+              <ArrowUpRight className="h-4 w-4 text-slate-400 group-hover:text-neutral-900" />
             </Link>
 
             <Link
               href="/users"
-              className="flex items-center justify-between p-3 rounded-lg border border-slate-100 bg-slate-50/70 hover:bg-blue-50/60 hover:border-blue-200 transition-colors group"
+              className="flex items-center justify-between p-3 rounded-lg border border-slate-100 bg-slate-50/70 hover:bg-neutral-100/60 hover:border-neutral-300 transition-colors group"
             >
               <div className="flex items-center gap-3">
-                <div className="flex h-8 w-8 items-center justify-center rounded-md bg-blue-100 text-blue-700">
+                <div className="flex h-8 w-8 items-center justify-center rounded-md bg-neutral-200 text-black">
                   <Users className="h-4 w-4" />
                 </div>
                 <div>
-                  <div className="text-xs font-bold text-slate-900 group-hover:text-blue-700">
+                  <div className="text-xs font-bold text-slate-900 group-hover:text-black">
                     User Accounts
                   </div>
                   <div className="text-[11px] text-slate-500">Inspect balances & bans</div>
                 </div>
               </div>
-              <ArrowUpRight className="h-4 w-4 text-slate-400 group-hover:text-blue-600" />
+              <ArrowUpRight className="h-4 w-4 text-slate-400 group-hover:text-neutral-900" />
             </Link>
 
             <Link
               href="/mcq"
-              className="flex items-center justify-between p-3 rounded-lg border border-slate-100 bg-slate-50/70 hover:bg-blue-50/60 hover:border-blue-200 transition-colors group"
+              className="flex items-center justify-between p-3 rounded-lg border border-slate-100 bg-slate-50/70 hover:bg-neutral-100/60 hover:border-neutral-300 transition-colors group"
             >
               <div className="flex items-center gap-3">
-                <div className="flex h-8 w-8 items-center justify-center rounded-md bg-indigo-100 text-indigo-700">
+                <div className="flex h-8 w-8 items-center justify-center rounded-md bg-neutral-200 text-neutral-800">
                   <HelpCircle className="h-4 w-4" />
                 </div>
                 <div>
-                  <div className="text-xs font-bold text-slate-900 group-hover:text-blue-700">
+                  <div className="text-xs font-bold text-slate-900 group-hover:text-black">
                     MCQ Question Pool
                   </div>
                   <div className="text-[11px] text-slate-500">5,420 questions active</div>
                 </div>
               </div>
-              <ArrowUpRight className="h-4 w-4 text-slate-400 group-hover:text-blue-600" />
+              <ArrowUpRight className="h-4 w-4 text-slate-400 group-hover:text-neutral-900" />
             </Link>
 
             <Link
               href="/ads"
-              className="flex items-center justify-between p-3 rounded-lg border border-slate-100 bg-slate-50/70 hover:bg-blue-50/60 hover:border-blue-200 transition-colors group"
+              className="flex items-center justify-between p-3 rounded-lg border border-slate-100 bg-slate-50/70 hover:bg-neutral-100/60 hover:border-neutral-300 transition-colors group"
             >
               <div className="flex items-center gap-3">
-                <div className="flex h-8 w-8 items-center justify-center rounded-md bg-purple-100 text-purple-700">
+                <div className="flex h-8 w-8 items-center justify-center rounded-md bg-neutral-200 text-neutral-800">
                   <Tv className="h-4 w-4" />
                 </div>
                 <div>
-                  <div className="text-xs font-bold text-slate-900 group-hover:text-blue-700">
+                  <div className="text-xs font-bold text-slate-900 group-hover:text-black">
                     SSV Verification Logs
                   </div>
                   <div className="text-[11px] text-slate-500">Google AdMob callbacks</div>
                 </div>
               </div>
-              <ArrowUpRight className="h-4 w-4 text-slate-400 group-hover:text-blue-600" />
+              <ArrowUpRight className="h-4 w-4 text-slate-400 group-hover:text-neutral-900" />
             </Link>
           </CardContent>
         </Card>

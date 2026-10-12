@@ -77,7 +77,7 @@ export default function SettingsPage() {
       <div>
         <h1 className="text-2xl font-bold tracking-tight text-slate-900">
           Platform Settings{" "}
-          <span className="ml-1 inline-flex items-center rounded-full bg-violet-50 px-2 py-0.5 text-[10px] font-bold text-violet-700 border border-violet-200 align-middle">
+          <span className="ml-1 inline-flex items-center rounded-full bg-neutral-100 px-2 py-0.5 text-[10px] font-bold text-neutral-900 border border-neutral-300 align-middle">
             {ENV_LABEL}
           </span>
         </h1>
@@ -94,7 +94,7 @@ export default function SettingsPage() {
         <Card className="border-slate-200 shadow-2xs">
           <CardHeader className="p-6 pb-4">
             <div className="flex items-center gap-2">
-              <Sliders className="h-4 w-4 text-blue-600" />
+              <Sliders className="h-4 w-4 text-neutral-900" />
               <CardTitle className="text-base font-bold text-slate-900">
                 Task Engine & Cooldown Rules
               </CardTitle>
@@ -246,7 +246,7 @@ export default function SettingsPage() {
         <Card className="border-slate-200 shadow-2xs">
           <CardHeader className="p-6 pb-4">
             <div className="flex items-center gap-2">
-              <Shield className="h-4 w-4 text-purple-600" />
+              <Shield className="h-4 w-4 text-neutral-700" />
               <CardTitle className="text-base font-bold text-slate-900">
                 Security & Key Isolation
               </CardTitle>
@@ -272,7 +272,7 @@ export default function SettingsPage() {
               <Button
                 type="submit"
                 size="sm"
-                className="h-9 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs shadow-xs"
+                className="h-9 bg-neutral-900 hover:bg-black text-white font-semibold text-xs shadow-xs"
               >
                 <Save className="mr-2 h-4 w-4" /> Save Configuration
               </Button>

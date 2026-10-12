@@ -290,7 +290,7 @@ export default function UsersPage() {
                   {/* Name + Avatar */}
                   <TableCell>
                     <div className="flex items-center gap-3">
-                      <Avatar className="h-8 w-8 bg-blue-100 text-blue-700 font-bold text-xs border border-blue-200">
+                      <Avatar className="h-8 w-8 bg-neutral-200 text-black font-bold text-xs border border-neutral-300">
                         <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
                       </Avatar>
                       <div>
@@ -423,9 +423,9 @@ export default function UsersPage() {
                                 description: `Mark ${user.name} as a verified identity?`,
                               })
                             }
-                            className="cursor-pointer text-xs text-blue-700 focus:bg-blue-50"
+                            className="cursor-pointer text-xs text-black focus:bg-neutral-100"
                           >
-                            <ShieldCheck className="mr-2 h-3.5 w-3.5 text-blue-600" />
+                            <ShieldCheck className="mr-2 h-3.5 w-3.5 text-neutral-900" />
                             Verify Account
                           </DropdownMenuItem>
                         )}
@@ -479,7 +479,7 @@ export default function UsersPage() {
             <DialogHeader className="space-y-3 pb-2 border-b border-slate-100">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <Avatar className="h-12 w-12 bg-blue-600 text-white font-bold text-base">
+                  <Avatar className="h-12 w-12 bg-neutral-900 text-white font-bold text-base">
                     <AvatarFallback>{getInitials(selectedUser.name)}</AvatarFallback>
                   </Avatar>
                   <div>
@@ -520,7 +520,7 @@ export default function UsersPage() {
               </div>
               <div className="rounded-lg bg-slate-50 p-3 border border-slate-100">
                 <div className="text-[11px] font-semibold text-slate-400 uppercase">Withdrawn</div>
-                <div className="text-base font-bold text-purple-700 mt-0.5">
+                <div className="text-base font-bold text-neutral-800 mt-0.5">
                   {formatCurrency(selectedUser.totalWithdrawn)}
                 </div>
               </div>
@@ -580,7 +580,7 @@ export default function UsersPage() {
                           <div className="flex items-center gap-3">
                             <div
                               className={`flex h-9 w-9 items-center justify-center rounded-lg ${
-                                isPaytm ? "bg-sky-50 text-sky-600" : "bg-indigo-50 text-indigo-600"
+                                isPaytm ? "bg-neutral-100 text-neutral-700" : "bg-neutral-100 text-neutral-700"
                               }`}
                             >
                               {isPaytm ? <Wallet className="h-4 w-4" /> : <Building2 className="h-4 w-4" />}
@@ -626,7 +626,7 @@ export default function UsersPage() {
                         <div className="flex items-center gap-2.5">
                           <div
                             className={`flex h-7 w-7 items-center justify-center rounded-full ${
-                              tx.isCredit ? "bg-emerald-50 text-emerald-600" : "bg-purple-50 text-purple-600"
+                              tx.isCredit ? "bg-emerald-50 text-emerald-600" : "bg-neutral-100 text-neutral-700"
                             }`}
                           >
                             {tx.isCredit ? <ArrowDownLeft className="h-3.5 w-3.5" /> : <ArrowUpRight className="h-3.5 w-3.5" />}
@@ -729,7 +729,7 @@ export default function UsersPage() {
                 ) : (
                   <Button
                     size="sm"
-                    className="bg-blue-600 hover:bg-blue-700 text-white text-xs h-8"
+                    className="bg-neutral-900 hover:bg-black text-white text-xs h-8"
                     onClick={() =>
                       setConfirmAction({
                         type: "VERIFY",
@@ -779,7 +779,7 @@ export default function UsersPage() {
                     ? "bg-red-600 hover:bg-red-700 text-white"
                     : confirmAction.type === "MARK_REVIEW"
                     ? "bg-amber-600 hover:bg-amber-700 text-white"
-                    : "bg-blue-600 hover:bg-blue-700 text-white"
+                    : "bg-neutral-900 hover:bg-black text-white"
                 }`}
               >
                 Confirm Action

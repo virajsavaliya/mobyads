@@ -294,7 +294,7 @@ export default function WithdrawalsPage() {
                       <div className="flex items-center gap-2">
                         <div
                           className={`flex h-7 w-7 items-center justify-center rounded-md ${
-                            isPaytm ? "bg-sky-50 text-sky-600" : "bg-indigo-50 text-indigo-600"
+                            isPaytm ? "bg-neutral-100 text-neutral-700" : "bg-neutral-100 text-neutral-700"
                           }`}
                         >
                           {isPaytm ? <Wallet className="h-3.5 w-3.5" /> : <Building2 className="h-3.5 w-3.5" />}
