@@ -8,12 +8,16 @@ class QuizCompleteScreen extends StatelessWidget {
   final double earnedAmount;
   final int totalCoins;
   final int totalQuestions;
+  final int confirmedMilestones;
+  final int unconfirmedMilestones;
 
   const QuizCompleteScreen({
     super.key,
     required this.earnedAmount,
     required this.totalCoins,
     required this.totalQuestions,
+    this.confirmedMilestones = 0,
+    this.unconfirmedMilestones = 0,
   });
 
   @override
@@ -23,12 +27,20 @@ class QuizCompleteScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: AppSpacing.screenPadding,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minHeight: MediaQuery.of(context).size.height -
+                  MediaQuery.of(context).padding.top -
+                  MediaQuery.of(context).padding.bottom -
+                  AppSpacing.m * 2,
+            ),
+            child: IntrinsicHeight(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
               const Spacer(),
 
               // Celebratory Icon Badge
@@ -122,7 +134,7 @@ class QuizCompleteScreen extends StatelessWidget {
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          '$totalCoins Coins credited to your wallet',
+                          '$totalCoins Coins earned',
                           style: TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.w600,
@@ -131,6 +143,52 @@ class QuizCompleteScreen extends StatelessWidget {
                         ),
                       ],
                     ),
+                    const SizedBox(height: 8),
+                    // One message per reward state (backend is authority)
+                    if (unconfirmedMilestones > 0)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(
+                            Icons.hourglass_top_rounded,
+                            size: 14,
+                            color: Color(0xFFB45309),
+                          ),
+                          const SizedBox(width: 4),
+                          Flexible(
+                            child: Text(
+                              '$unconfirmedMilestones video reward${unconfirmedMilestones == 1 ? '' : 's'} pending review — wallet updates on confirmation.',
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                fontSize: 12,
+                                color: Color(0xFFB45309),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    else
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.sync_rounded,
+                            size: 14,
+                            color: AppColors.accentDark,
+                          ),
+                          SizedBox(width: 4),
+                          Flexible(
+                            child: Text(
+                              'Rewards confirmed — syncing to your wallet.',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: AppColors.accentDark,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                   ],
                 ),
               ),
@@ -151,13 +209,28 @@ class QuizCompleteScreen extends StatelessWidget {
                     child: _buildSummaryBox(
                       icon: Icons.ondemand_video_rounded,
                       title: 'Milestones',
-                      value: '2 Videos',
+                      value: '$confirmedMilestones of 2 confirmed',
                     ),
                   ),
                 ],
               ),
 
               const Spacer(),
+
+              // Wallet link + Back to Home
+              OutlinedButton.icon(
+                onPressed: () => context.go('/wallet'),
+                style: OutlinedButton.styleFrom(
+                  minimumSize:
+                      const Size(double.infinity, AppSpacing.buttonHeight),
+                ),
+                icon: const Icon(Icons.account_balance_wallet_rounded, size: 20),
+                label: const Text(
+                  'View Wallet',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+              ),
+              const SizedBox(height: AppSpacing.s),
 
               // Back to Home Button
               ElevatedButton(
@@ -181,6 +254,8 @@ class QuizCompleteScreen extends StatelessWidget {
               ),
               const SizedBox(height: AppSpacing.m),
             ],
+          ),
+            ),
           ),
         ),
       ),

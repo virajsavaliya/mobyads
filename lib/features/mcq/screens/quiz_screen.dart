@@ -230,6 +230,10 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
         earnedAmount: quizState.earnedAmount,
         totalCoins: quizState.totalCoinsEarned,
         totalQuestions: quizState.totalQuestions,
+        confirmedMilestones:
+            quizState.confirmedRewardMilestones.length,
+        unconfirmedMilestones:
+            quizState.unconfirmedRewardMilestones.length,
       );
     }
 
