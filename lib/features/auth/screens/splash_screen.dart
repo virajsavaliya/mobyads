@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../../core/config/app_constants.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../controllers/auth_controller.dart';
@@ -47,6 +49,14 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     await Future.delayed(const Duration(milliseconds: 1500));
 
     if (!mounted) return;
+
+    // First run goes through onboarding once
+    final prefs = await SharedPreferences.getInstance();
+    if (!mounted) return;
+    if (!(prefs.getBool(AppConstants.onboardingKey) ?? false)) {
+      context.go('/onboarding');
+      return;
+    }
 
     final isLoggedIn =
         await ref.read(authControllerProvider.notifier).checkAuthStatus();
