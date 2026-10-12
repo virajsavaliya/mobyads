@@ -65,6 +65,7 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
 
     return Scaffold(
       backgroundColor: AppColors.background,
+      extendBody: true,
       appBar: AppBar(
         title: const Text('Tasks & Rewards'),
         centerTitle: true,
@@ -361,7 +362,7 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
               // 4. Friend Referral Bonus Card
               _buildTaskCard(
                 icon: Icons.people_alt_rounded,
-                iconColor: Colors.purple.shade600,
+                iconColor: const Color(0xFF3F3F46),
                 title: 'Refer & Earn ₹25',
                 subtitle: 'Invite friends using your personal referral code',
                 reward: '+₹25.00',
@@ -389,7 +390,7 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
               const Center(
                 child: AppBannerAd(),
               ),
-              const SizedBox(height: AppSpacing.xl),
+              const SizedBox(height: 96),
             ],
           ),
         ),

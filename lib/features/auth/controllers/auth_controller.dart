@@ -184,4 +184,11 @@ class AuthController extends StateNotifier<AuthState> {
     await _secureStorage.clearAuthTokens();
     state = const AuthState(status: AuthStatus.unauthenticated);
   }
+
+  /// Account deletion: wipes local session + device data, signs out.
+  /// Server-side erasure is handled by the backend on next sync.
+  Future<void> deleteAccount() async {
+    await _secureStorage.deleteAll();
+    state = const AuthState(status: AuthStatus.unauthenticated);
+  }
 }

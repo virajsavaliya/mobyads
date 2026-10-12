@@ -19,6 +19,7 @@ import '../../features/profile/screens/privacy_policy_screen.dart';
 import '../../features/profile/screens/terms_conditions_screen.dart';
 import '../../features/profile/screens/help_support_screen.dart';
 import '../../features/profile/screens/about_screen.dart';
+import '../../features/profile/screens/delete_account_screen.dart';
 import '../../features/coupons/screens/coupons_screen.dart';
 import '../../widgets/main_nav_shell.dart';
 
@@ -187,6 +188,16 @@ final GoRouter appRouter = GoRouter(
         context: context,
         state: state,
         child: const HelpSupportScreen(),
+      ),
+    ),
+    GoRoute(
+      path: '/profile/delete',
+      name: 'profile_delete',
+      parentNavigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) => _buildPageWithTransition(
+        context: context,
+        state: state,
+        child: const DeleteAccountScreen(),
       ),
     ),
     GoRoute(

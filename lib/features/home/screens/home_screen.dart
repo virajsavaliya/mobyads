@@ -11,6 +11,7 @@ import '../../../core/theme/app_spacing.dart';
 import '../../../core/utils/app_logger.dart';
 import '../../../core/utils/formatters.dart';
 import '../../../models/task_model.dart';
+import '../../../widgets/edge_fade_scroll.dart';
 import '../../ads/widgets/app_banner_ad.dart';
 import '../../auth/controllers/auth_controller.dart';
 import '../models/home_dashboard_state.dart';
@@ -38,9 +39,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     _initIndependentCarouselAds();
     _adCarouselController = PageController();
     _startAdCarouselTimer();
-    Future.microtask(
-      () => ref.read(serverConfigProvider.notifier).load(),
-    );
+    Future.microtask(() => ref.read(serverConfigProvider.notifier).load());
   }
 
   /// Creates and loads a separate, independent BannerAd instance per slide
@@ -115,52 +114,53 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
     return Scaffold(
       backgroundColor: AppColors.background,
+      extendBody: true,
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () => ref.read(homeDashboardProvider.notifier).refresh(),
           color: AppColors.primary,
-          child: SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppSpacing.m,
-              vertical: AppSpacing.s,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                // 1. Top Custom App Bar Area
-                _buildHeader(context, theme, userName),
-                const SizedBox(height: AppSpacing.m),
+          child: EdgeFadeScroll(
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppSpacing.m,
+                vertical: AppSpacing.s,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  // 1. Top Custom App Bar Area
+                  _buildHeader(context, theme, userName),
+                  const SizedBox(height: AppSpacing.m),
 
-                // 2. Sponsored Ad Slider (top of page, fading slides)
-                _buildAdCarousel(context, theme),
-                const SizedBox(height: AppSpacing.m),
+                  // 2. Sponsored Ad Slider (top of page, fading slides)
+                  _buildAdCarousel(context, theme),
+                  const SizedBox(height: AppSpacing.m),
 
-                // 3. Balance hero: Available largest, Pending secondary, Withdraw CTA
-                _buildBalanceHero(context, theme, dashboardState),
-                const SizedBox(height: AppSpacing.m),
+                  // 3. Balance hero: Available largest, Pending secondary, Withdraw CTA
+                  _buildBalanceHero(context, theme, dashboardState),
+                  const SizedBox(height: AppSpacing.m),
 
-                // 4. "Today's Task" Section (single next-task CTA)
-                _buildTodayTaskSection(
-                  context,
-                  theme,
-                  dashboardState,
-                  serverRewardTotal: serverConfig.rewardMcq *
-                      serverConfig.mcqCount,
-                  dailyLimit: serverConfig.dailyLimit,
-                ),
-                const SizedBox(height: AppSpacing.l),
+                  // 4. "Today's Task" Section (single next-task CTA)
+                  _buildTodayTaskSection(
+                    context,
+                    theme,
+                    dashboardState,
+                    serverRewardTotal:
+                        serverConfig.rewardMcq * serverConfig.mcqCount,
+                    dailyLimit: serverConfig.dailyLimit,
+                  ),
+                  const SizedBox(height: AppSpacing.l),
 
-                // 5. Quick Stats Row (Total Earned / Tasks Today / Ads Watched)
-                _buildQuickStatsRow(theme, dashboardState),
-                const SizedBox(height: AppSpacing.l),
+                  // 5. Quick Stats Row (Total Earned / Tasks Today / Ads Watched)
+                  _buildQuickStatsRow(theme, dashboardState),
+                  const SizedBox(height: AppSpacing.l),
 
-                // 6. Persistent Banner Ad (pinned placement above bottom nav)
-                const Center(
-                  child: AppBannerAd(),
-                ),
-                const SizedBox(height: AppSpacing.m),
-              ],
+                  // 6. Persistent Banner Ad (pinned placement above bottom nav)
+                  const Center(child: AppBannerAd()),
+                  const SizedBox(height: 96),
+                ],
+              ),
             ),
           ),
         ),
@@ -181,32 +181,32 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             child: Container(
               width: 48,
               height: 48,
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [AppColors.primary, AppColors.primaryDark],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-              shape: BoxShape.circle,
-              border: Border.all(color: Colors.white, width: 2),
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.primary.withValues(alpha: 0.25),
-                  blurRadius: 8,
-                  offset: const Offset(0, 2),
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [AppColors.primary, AppColors.primaryDark],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
                 ),
-              ],
-            ),
-            child: Center(
-              child: Text(
-                userName.isNotEmpty ? userName[0].toUpperCase() : 'U',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+                shape: BoxShape.circle,
+                border: Border.all(color: Colors.white, width: 2),
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.primary.withValues(alpha: 0.25),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Center(
+                child: Text(
+                  userName.isNotEmpty ? userName[0].toUpperCase() : 'U',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-            ),
             ),
           ),
         ),
@@ -395,8 +395,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     } catch (_) {
                       offset = index.toDouble();
                     }
-                    final fade =
-                        (1.0 - (offset - index).abs()).clamp(0.0, 1.0);
+                    final fade = (1.0 - (offset - index).abs()).clamp(0.0, 1.0);
                     return Opacity(
                       opacity: 0.35 + 0.65 * fade,
                       child: _buildSlide(context, index),
@@ -437,17 +436,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Widget _buildSlide(BuildContext context, int index) {
     final bannerAd = _carouselAds[index];
     if (bannerAd != null) {
-      return _buildAdMobSlide(
-        index: index,
-        bannerAd: bannerAd,
-      );
+      return _buildAdMobSlide(index: index, bannerAd: bannerAd);
     }
     return _buildNeutralPlaceholderSlide(index: index);
   }
-  Widget _buildAdMobSlide({
-    required int index,
-    required BannerAd bannerAd,
-  }) {
+
+  Widget _buildAdMobSlide({required int index, required BannerAd bannerAd}) {
     final List<List<Color>> gradients = [
       const [Color(0xFF09090B), Color(0xFF27272A)],
       const [Color(0xFF18181B), Color(0xFF000000)],
@@ -489,7 +483,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               ),
               Row(
                 children: [
-                  const Icon(Icons.verified_outlined, color: Colors.white70, size: 12),
+                  const Icon(
+                    Icons.verified_outlined,
+                    color: Colors.white70,
+                    size: 12,
+                  ),
                   const SizedBox(width: 4),
                   Text(
                     'Ad Slot ${index + 1}/$_slideCount',
@@ -522,28 +520,32 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final List<Map<String, dynamic>> fallbackOffers = [
       {
         'title': 'Featured Partner Deals',
-        'subtitle': 'Complete daily news quizzes to unlock sponsored brand rewards.',
+        'subtitle':
+            'Complete daily news quizzes to unlock sponsored brand rewards.',
         'gradient': [const Color(0xFF18181B), const Color(0xFF000000)],
         'icon': Icons.local_offer_rounded,
         'badge': 'FEATURED',
       },
       {
         'title': 'Daily Cashback Rewards',
-        'subtitle': 'Sponsored by certified brand partners with guaranteed bank payouts.',
+        'subtitle':
+            'Sponsored by certified brand partners with guaranteed bank payouts.',
         'gradient': [const Color(0xFF27272A), const Color(0xFF3F3F46)],
         'icon': Icons.savings_rounded,
         'badge': 'SPONSOR',
       },
       {
         'title': 'Quiz Bonus Multiplier',
-        'subtitle': 'Earn up to 2x bonus reward coins by maintaining your daily streak.',
+        'subtitle':
+            'Earn up to 2x bonus reward coins by maintaining your daily streak.',
         'gradient': [const Color(0xFF52525B), const Color(0xFF27272A)],
         'icon': Icons.stars_rounded,
         'badge': 'BOOST',
       },
       {
         'title': 'Verified News Sponsor',
-        'subtitle': 'Daily educational affairs verified and supported by certified advertisers.',
+        'subtitle':
+            'Daily educational affairs verified and supported by certified advertisers.',
         'gradient': [const Color(0xFF27272A), const Color(0xFF18181B)],
         'icon': Icons.verified_user_rounded,
         'badge': 'VERIFIED',
@@ -576,7 +578,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 ),
                 child: Row(
                   children: [
-                    Icon(offer['icon'] as IconData, color: Colors.white, size: 12),
+                    Icon(
+                      offer['icon'] as IconData,
+                      color: Colors.white,
+                      size: 12,
+                    ),
                     const SizedBox(width: 4),
                     Text(
                       '${offer['badge']} #${index + 1}',
@@ -748,8 +754,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               color: isLocked
                   ? AppColors.divider
                   : isAvailable
-                      ? AppColors.primary.withValues(alpha: 0.22)
-                      : AppColors.primary,
+                  ? AppColors.primary.withValues(alpha: 0.22)
+                  : AppColors.primary,
               width: isInProgress ? 1.5 : 1.2,
             ),
             boxShadow: [
@@ -773,21 +779,21 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       color: isLocked
                           ? const Color(0xFFF1F5F9)
                           : isAvailable
-                              ? AppColors.accentLight
-                              : AppColors.primaryLight,
+                          ? AppColors.accentLight
+                          : AppColors.primaryLight,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Icon(
                       isLocked
                           ? Icons.lock_clock_rounded
                           : isAvailable
-                              ? Icons.quiz_rounded
-                              : Icons.play_circle_filled_rounded,
+                          ? Icons.quiz_rounded
+                          : Icons.play_circle_filled_rounded,
                       color: isLocked
                           ? AppColors.textSecondary
                           : isAvailable
-                              ? AppColors.accentDark
-                              : AppColors.primary,
+                          ? AppColors.accentDark
+                          : AppColors.primary,
                       size: 26,
                     ),
                   ),
@@ -800,8 +806,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                           isLocked
                               ? 'Next Task Locked'
                               : isAvailable
-                                  ? 'Task Ready'
-                                  : 'Task In Progress',
+                              ? 'Task Ready'
+                              : 'Task In Progress',
                           style: theme.textTheme.titleMedium?.copyWith(
                             fontWeight: FontWeight.bold,
                             color: isLocked
@@ -814,14 +820,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                           isLocked
                               ? 'Next task unlocks in'
                               : isAvailable
-                                  ? 'Earn up to ${Formatters.formatCurrency(serverRewardTotal)}'
-                                  : '10-MCQ session active • Resume quiz',
+                              ? 'Earn up to ${Formatters.formatCurrency(serverRewardTotal)}'
+                              : '10-MCQ session active • Resume quiz',
                           style: theme.textTheme.bodySmall?.copyWith(
                             color: isLocked
                                 ? AppColors.textMuted
                                 : isAvailable
-                                    ? AppColors.accentDark
-                                    : AppColors.primary,
+                                ? AppColors.accentDark
+                                : AppColors.primary,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -871,10 +877,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 const Center(
                   child: Text(
                     'Unlocks automatically when countdown reaches zero',
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: AppColors.textMuted,
-                    ),
+                    style: TextStyle(fontSize: 11, color: AppColors.textMuted),
                   ),
                 ),
               ] else if (isInProgress) ...[
@@ -892,10 +895,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   icon: const Icon(Icons.play_arrow_rounded, size: 22),
                   label: const Text(
                     'Continue Task',
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                   ),
                 ),
               ] else ...[
@@ -913,10 +913,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   icon: const Icon(Icons.play_arrow_rounded, size: 22),
                   label: const Text(
                     'Start Task',
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                   ),
                 ),
               ],
@@ -927,10 +924,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         Center(
           child: Text(
             'Daily limit ${Formatters.formatCurrency(dailyLimit)} • server-configured rewards',
-            style: const TextStyle(
-              fontSize: 11,
-              color: AppColors.textMuted,
-            ),
+            style: const TextStyle(fontSize: 11, color: AppColors.textMuted),
           ),
         ),
       ],

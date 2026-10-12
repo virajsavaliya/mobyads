@@ -71,6 +71,7 @@ class ProfileScreen extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: AppColors.background,
+      extendBody: true,
       appBar: AppBar(
         title: const Text('Profile'),
         centerTitle: true,
@@ -355,7 +356,56 @@ class ProfileScreen extends ConsumerWidget {
             ),
             const SizedBox(height: AppSpacing.l),
 
-              // 5. App Version Footer
+              // 5. Danger Zone: Delete Account
+              Material(
+                color: AppColors.surface,
+                borderRadius: BorderRadius.circular(16),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: Colors.red.shade200),
+                  ),
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: AppSpacing.m,
+                      vertical: 2,
+                    ),
+                    leading: Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Colors.red.shade50,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: const Icon(
+                        Icons.delete_forever_outlined,
+                        color: AppColors.error,
+                        size: 20,
+                      ),
+                    ),
+                    title: const Text(
+                      'Delete Account',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.error,
+                        fontSize: 15,
+                      ),
+                    ),
+                    subtitle: const Text(
+                      'Permanently remove account & data',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                    trailing: const Icon(
+                      Icons.arrow_forward_ios_rounded,
+                      size: 14,
+                      color: AppColors.error,
+                    ),
+                    onTap: () => context.push('/profile/delete'),
+                  ),
+                ),
+              ),
+              const SizedBox(height: AppSpacing.l),
+
+              // 6. App Version Footer
               Text(
                 '${AppConstants.appName} v${AppConstants.appVersion} (Build 1)',
                 style: theme.textTheme.bodySmall?.copyWith(
@@ -371,7 +421,7 @@ class ProfileScreen extends ConsumerWidget {
                   fontSize: 11,
                 ),
               ),
-              const SizedBox(height: AppSpacing.xl),
+              const SizedBox(height: 96),
             ],
           ),
         ),

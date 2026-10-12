@@ -1,4 +1,5 @@
 import 'dart:io' show Platform;
+import 'dart:ui' show ImageFilter;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
@@ -15,10 +16,7 @@ import '../features/wallet/screens/wallet_screen.dart';
 class MainNavShell extends StatefulWidget {
   final StatefulNavigationShell navigationShell;
 
-  const MainNavShell({
-    super.key,
-    required this.navigationShell,
-  });
+  const MainNavShell({super.key, required this.navigationShell});
 
   @override
   State<MainNavShell> createState() => _MainNavShellState();
@@ -56,7 +54,8 @@ class _MainNavShellState extends State<MainNavShell> {
 
       // Trigger light haptic tick when crossing integer tab threshold
       final roundedIndex = page.round().clamp(0, _tabCount - 1);
-      if (roundedIndex != _lastHapticIndex && (page - roundedIndex).abs() < 0.15) {
+      if (roundedIndex != _lastHapticIndex &&
+          (page - roundedIndex).abs() < 0.15) {
         _lastHapticIndex = roundedIndex;
         HapticFeedback.selectionClick();
       }
@@ -116,10 +115,7 @@ class _MainNavShellState extends State<MainNavShell> {
   }
 
   void _onPageChanged(int index) {
-    widget.navigationShell.goBranch(
-      index,
-      initialLocation: false,
-    );
+    widget.navigationShell.goBranch(index, initialLocation: false);
   }
 
   @override
@@ -137,128 +133,61 @@ class _MainNavShellState extends State<MainNavShell> {
           ProfileScreen(),
         ],
       ),
-      bottomNavigationBar: SafeArea(
-        top: false,
-        minimum: const EdgeInsets.fromLTRB(18, 0, 18, 14),
-        child: Container(
-          height: 68,
-          decoration: BoxDecoration(
-            color: const Color(0xFFF7F7F5), // Soft off-white / cream background
-            borderRadius: BorderRadius.circular(999), // Fully rounded pill ends
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.08),
-                blurRadius: 22,
-                offset: const Offset(0, 8),
-                spreadRadius: 1,
+      bottomNavigationBar: ClipRect(
+        // Instagram / native iOS tab bar: translucent blur, hairline top
+        // edge, no floating box. Content scrolls underneath (extendBody).
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 22, sigmaY: 22),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.78),
+              border: Border(
+                top: BorderSide(
+                  color: AppColors.divider.withValues(alpha: 0.9),
+                  width: 0.5,
+                ),
               ),
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.03),
-                blurRadius: 6,
-                offset: const Offset(0, 2),
-              ),
-            ],
-            border: Border.all(
-              color: Colors.white.withValues(alpha: 0.9),
-              width: 1.5,
             ),
-          ),
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              final totalWidth = constraints.maxWidth;
-              const innerPadding = 6.0;
-              final availableWidth = totalWidth - (innerPadding * 2);
-              final tabWidth = availableWidth / _tabCount;
-
-              // Constrained sliding pill width
-              final activePillWidth = tabWidth * 0.88;
-              final pillHorizontalOffset = innerPadding +
-                  (_pageOffset * tabWidth) +
-                  ((tabWidth - activePillWidth) / 2);
-
-              return Stack(
-                alignment: Alignment.centerLeft,
-                children: [
-                  // Real-Time Sliding Active Pill Highlight
-                  Positioned(
-                    left: pillHorizontalOffset.clamp(
-                      innerPadding,
-                      totalWidth - innerPadding - activePillWidth,
-                    ),
-                    top: 8,
-                    bottom: 8,
-                    width: activePillWidth,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(999),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.06),
-                            blurRadius: 8,
-                            offset: const Offset(0, 2),
-                          ),
-                          BoxShadow(
-                            color: AppColors.primary.withValues(alpha: 0.08),
-                            blurRadius: 12,
-                            offset: const Offset(0, 3),
-                          ),
-                        ],
-                        border: Border.all(
-                          color: Colors.white.withValues(alpha: 0.85),
-                          width: 1.2,
-                        ),
-                      ),
-                    ),
-                  ),
-
-                  // 4 Interactive Tab Items
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: innerPadding),
-                    child: Row(
-                      children: [
-                        _buildTabItem(
-                          index: 0,
-                          label: 'Home',
-                          tabWidth: tabWidth,
-                          materialIcon: Icons.home_outlined,
-                          materialActiveIcon: Icons.home_rounded,
-                          cupertinoIcon: CupertinoIcons.house,
-                          cupertinoActiveIcon: CupertinoIcons.house_fill,
-                        ),
-                        _buildTabItem(
-                          index: 1,
-                          label: 'Wallet',
-                          tabWidth: tabWidth,
-                          materialIcon: Icons.account_balance_wallet_outlined,
-                          materialActiveIcon: Icons.account_balance_wallet_rounded,
-                          cupertinoIcon: CupertinoIcons.creditcard,
-                          cupertinoActiveIcon: CupertinoIcons.creditcard_fill,
-                        ),
-                        _buildTabItem(
-                          index: 2,
-                          label: 'Quiz',
-                          tabWidth: tabWidth,
-                          materialIcon: Icons.task_alt_rounded,
-                          materialActiveIcon: Icons.verified_rounded,
-                          cupertinoIcon: CupertinoIcons.checkmark_seal,
-                          cupertinoActiveIcon: CupertinoIcons.checkmark_seal_fill,
-                        ),
-                        _buildTabItem(
-                          index: 3,
-                          label: 'Profile',
-                          tabWidth: tabWidth,
-                          materialIcon: Icons.person_outline_rounded,
-                          materialActiveIcon: Icons.person_rounded,
-                          cupertinoIcon: CupertinoIcons.person_crop_circle,
-                          cupertinoActiveIcon: CupertinoIcons.person_crop_circle_fill,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              );
-            },
+            padding: EdgeInsets.only(
+              top: 8,
+              bottom: MediaQuery.of(context).padding.bottom + 8,
+            ),
+            child: Row(
+              children: [
+                _buildTabItem(
+                  index: 0,
+                  label: 'Home',
+                  materialIcon: Icons.home_outlined,
+                  materialActiveIcon: Icons.home_rounded,
+                  cupertinoIcon: CupertinoIcons.house,
+                  cupertinoActiveIcon: CupertinoIcons.house_fill,
+                ),
+                _buildTabItem(
+                  index: 1,
+                  label: 'Wallet',
+                  materialIcon: Icons.account_balance_wallet_outlined,
+                  materialActiveIcon: Icons.account_balance_wallet_rounded,
+                  cupertinoIcon: CupertinoIcons.creditcard,
+                  cupertinoActiveIcon: CupertinoIcons.creditcard_fill,
+                ),
+                _buildTabItem(
+                  index: 2,
+                  label: 'Quiz',
+                  materialIcon: Icons.task_alt_rounded,
+                  materialActiveIcon: Icons.verified_rounded,
+                  cupertinoIcon: CupertinoIcons.checkmark_seal,
+                  cupertinoActiveIcon: CupertinoIcons.checkmark_seal_fill,
+                ),
+                _buildTabItem(
+                  index: 3,
+                  label: 'Profile',
+                  materialIcon: Icons.person_outline_rounded,
+                  materialActiveIcon: Icons.person_rounded,
+                  cupertinoIcon: CupertinoIcons.person_crop_circle,
+                  cupertinoActiveIcon: CupertinoIcons.person_crop_circle_fill,
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -268,20 +197,18 @@ class _MainNavShellState extends State<MainNavShell> {
   Widget _buildTabItem({
     required int index,
     required String label,
-    required double tabWidth,
     required IconData materialIcon,
     required IconData materialActiveIcon,
     required IconData cupertinoIcon,
     required IconData cupertinoActiveIcon,
   }) {
-    // Calculate continuous interpolation factor between 0.0 (inactive) and 1.0 (active)
+    // Continuous interpolation between inactive and active during swipes
     final distance = (index - _pageOffset).abs();
     final activeFactor = (1.0 - distance).clamp(0.0, 1.0);
 
-    final activeColor = AppColors.primary;
-    const inactiveColor = Color(0xFF475569); // Solid slate dark-grey
+    const activeColor = AppColors.primary; // black
+    const inactiveColor = Color(0xFFA1A1AA); // zinc-400
 
-    // Smooth color cross-fade
     final currentColor = Color.lerp(inactiveColor, activeColor, activeFactor)!;
 
     final icon = _isIOS
@@ -290,32 +217,27 @@ class _MainNavShellState extends State<MainNavShell> {
 
     final isBeingPressed = _pressedIndex == index;
 
-    return SizedBox(
-      width: tabWidth,
+    return Expanded(
       child: GestureDetector(
         onTap: () => _onTabTapped(index),
         behavior: HitTestBehavior.opaque,
         child: Center(
           child: AnimatedScale(
-            scale: isBeingPressed ? 0.92 : 1.0,
+            scale: isBeingPressed ? 0.9 : 1.0,
             duration: const Duration(milliseconds: 100),
             curve: Curves.easeOutCubic,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  icon,
-                  size: 22,
-                  color: currentColor,
-                ),
-                const SizedBox(height: 3),
+                Icon(icon, size: 26, color: currentColor),
+                const SizedBox(height: 2),
                 Text(
                   label,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                    fontSize: 11,
+                    fontSize: 10,
                     fontWeight: activeFactor > 0.5
                         ? FontWeight.w700
                         : FontWeight.w500,

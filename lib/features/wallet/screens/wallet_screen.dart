@@ -24,6 +24,7 @@ class WalletScreen extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: AppColors.background,
+      extendBody: true,
       appBar: AppBar(
         title: const Text('My Wallet'),
         centerTitle: true,
@@ -108,7 +109,7 @@ class WalletScreen extends ConsumerWidget {
                   return _buildDateGroup(theme, entry.key, entry.value);
                 }),
 
-              const SizedBox(height: AppSpacing.xl),
+              const SizedBox(height: 96),
             ],
           ),
         ),
