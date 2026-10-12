@@ -9,6 +9,7 @@ import '../../../core/utils/formatters.dart';
 import '../../../widgets/app_empty_state.dart';
 import '../controllers/wallet_controller.dart';
 import '../models/transaction_model.dart';
+import '../widgets/transaction_detail_sheet.dart';
 
 class WalletScreen extends ConsumerWidget {
   const WalletScreen({super.key});
@@ -440,12 +441,22 @@ class _TransactionTile extends StatelessWidget {
     final timeFormat = DateFormat('hh:mm a');
     final formattedTime = timeFormat.format(transaction.timestamp);
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.m,
-        vertical: AppSpacing.s + 2,
+    return InkWell(
+      onTap: () => showModalBottomSheet(
+        context: context,
+        backgroundColor: AppColors.surface,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+        ),
+        builder: (_) => TransactionDetailSheet(transaction: transaction),
       ),
-      child: Row(
+      borderRadius: BorderRadius.circular(16),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.m,
+          vertical: AppSpacing.s + 2,
+        ),
+        child: Row(
         children: [
           // Directional Icon Avatar
           Container(
@@ -512,6 +523,7 @@ class _TransactionTile extends StatelessWidget {
             ],
           ),
         ],
+        ),
       ),
     );
   }
