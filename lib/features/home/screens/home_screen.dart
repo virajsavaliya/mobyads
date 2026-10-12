@@ -11,7 +11,6 @@ import '../../../core/theme/app_spacing.dart';
 import '../../../core/utils/app_logger.dart';
 import '../../../core/utils/formatters.dart';
 import '../../../models/task_model.dart';
-import '../../../widgets/edge_fade_scroll.dart';
 import '../../ads/widgets/app_banner_ad.dart';
 import '../../auth/controllers/auth_controller.dart';
 import '../models/home_dashboard_state.dart';
@@ -119,48 +118,46 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         child: RefreshIndicator(
           onRefresh: () => ref.read(homeDashboardProvider.notifier).refresh(),
           color: AppColors.primary,
-          child: EdgeFadeScroll(
-            child: SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppSpacing.m,
-                vertical: AppSpacing.s,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  // 1. Top Custom App Bar Area
-                  _buildHeader(context, theme, userName),
-                  const SizedBox(height: AppSpacing.m),
+          child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.m,
+              vertical: AppSpacing.s,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                // 1. Top Custom App Bar Area
+                _buildHeader(context, theme, userName),
+                const SizedBox(height: AppSpacing.m),
 
-                  // 2. Sponsored Ad Slider (top of page, fading slides)
-                  _buildAdCarousel(context, theme),
-                  const SizedBox(height: AppSpacing.m),
+                // 2. Sponsored Ad Slider (top of page, fading slides)
+                _buildAdCarousel(context, theme),
+                const SizedBox(height: AppSpacing.m),
 
-                  // 3. Balance hero: Available largest, Pending secondary, Withdraw CTA
-                  _buildBalanceHero(context, theme, dashboardState),
-                  const SizedBox(height: AppSpacing.m),
+                // 3. Balance hero: Available largest, Pending secondary, Withdraw CTA
+                _buildBalanceHero(context, theme, dashboardState),
+                const SizedBox(height: AppSpacing.m),
 
-                  // 4. "Today's Task" Section (single next-task CTA)
-                  _buildTodayTaskSection(
-                    context,
-                    theme,
-                    dashboardState,
-                    serverRewardTotal:
-                        serverConfig.rewardMcq * serverConfig.mcqCount,
-                    dailyLimit: serverConfig.dailyLimit,
-                  ),
-                  const SizedBox(height: AppSpacing.l),
+                // 4. "Today's Task" Section (single next-task CTA)
+                _buildTodayTaskSection(
+                  context,
+                  theme,
+                  dashboardState,
+                  serverRewardTotal:
+                      serverConfig.rewardMcq * serverConfig.mcqCount,
+                  dailyLimit: serverConfig.dailyLimit,
+                ),
+                const SizedBox(height: AppSpacing.l),
 
-                  // 5. Quick Stats Row (Total Earned / Tasks Today / Ads Watched)
-                  _buildQuickStatsRow(theme, dashboardState),
-                  const SizedBox(height: AppSpacing.l),
+                // 5. Quick Stats Row (Total Earned / Tasks Today / Ads Watched)
+                _buildQuickStatsRow(theme, dashboardState),
+                const SizedBox(height: AppSpacing.l),
 
-                  // 6. Persistent Banner Ad (pinned placement above bottom nav)
-                  const Center(child: AppBannerAd()),
-                  const SizedBox(height: 96),
-                ],
-              ),
+                // 6. Persistent Banner Ad (pinned placement above bottom nav)
+                const Center(child: AppBannerAd()),
+                const SizedBox(height: 96),
+              ],
             ),
           ),
         ),
