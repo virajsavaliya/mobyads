@@ -151,7 +151,7 @@ class _AddPayoutMethodSheetContentState
                         type: PayoutMethodType.paytm,
                         title: 'Paytm',
                         icon: Icons.account_balance_wallet_rounded,
-                        activeColor: const Color(0xFF0284C7),
+                        activeColor: const Color(0xFF3F3F46),
                       ),
                     ),
                   ],
@@ -282,7 +282,7 @@ class _AddPayoutMethodSheetContentState
                 onPressed: _submitForm,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: _selectedType == PayoutMethodType.paytm
-                      ? const Color(0xFF0284C7)
+                      ? const Color(0xFF3F3F46)
                       : AppColors.primary,
                   padding: const EdgeInsets.symmetric(vertical: 14),
                   shape: RoundedRectangleBorder(

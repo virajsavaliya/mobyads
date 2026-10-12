@@ -287,14 +287,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       padding: const EdgeInsets.all(AppSpacing.l),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: [Color(0xFF0E7490), Color(0xFF155E75)],
+          colors: [Color(0xFF18181B), Color(0xFF000000)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF0E7490).withValues(alpha: 0.3),
+            color: const Color(0xFF18181B).withValues(alpha: 0.3),
             blurRadius: 16,
             offset: const Offset(0, 6),
           ),
@@ -427,10 +427,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     required BannerAd bannerAd,
   }) {
     final List<List<Color>> gradients = [
-      const [Color(0xFF0F172A), Color(0xFF1E293B)],
-      const [Color(0xFF0E7490), Color(0xFF155E75)],
-      const [Color(0xFF312E81), Color(0xFF1E1B4B)],
-      const [Color(0xFF14532D), Color(0xFF064E3B)],
+      const [Color(0xFF09090B), Color(0xFF27272A)],
+      const [Color(0xFF18181B), Color(0xFF000000)],
+      const [Color(0xFF3F3F46), Color(0xFF18181B)],
+      const [Color(0xFF52525B), Color(0xFF27272A)],
     ];
     final gradient = gradients[index % gradients.length];
 
@@ -501,28 +501,28 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       {
         'title': 'Featured Partner Deals',
         'subtitle': 'Complete daily news quizzes to unlock sponsored brand rewards.',
-        'gradient': [const Color(0xFF0E7490), const Color(0xFF155E75)],
+        'gradient': [const Color(0xFF18181B), const Color(0xFF000000)],
         'icon': Icons.local_offer_rounded,
         'badge': 'FEATURED',
       },
       {
         'title': 'Daily Cashback Rewards',
         'subtitle': 'Sponsored by certified brand partners with guaranteed bank payouts.',
-        'gradient': [const Color(0xFF1E293B), const Color(0xFF334155)],
+        'gradient': [const Color(0xFF27272A), const Color(0xFF3F3F46)],
         'icon': Icons.savings_rounded,
         'badge': 'SPONSOR',
       },
       {
         'title': 'Quiz Bonus Multiplier',
         'subtitle': 'Earn up to 2x bonus reward coins by maintaining your daily streak.',
-        'gradient': [const Color(0xFF4338CA), const Color(0xFF312E81)],
+        'gradient': [const Color(0xFF52525B), const Color(0xFF27272A)],
         'icon': Icons.stars_rounded,
         'badge': 'BOOST',
       },
       {
         'title': 'Verified News Sponsor',
         'subtitle': 'Daily educational affairs verified and supported by certified advertisers.',
-        'gradient': [const Color(0xFF0F766E), const Color(0xFF115E59)],
+        'gradient': [const Color(0xFF27272A), const Color(0xFF18181B)],
         'icon': Icons.verified_user_rounded,
         'badge': 'VERIFIED',
       },
@@ -577,7 +577,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 child: const Text(
                   'Learn More',
                   style: TextStyle(
-                    color: Color(0xFF0F172A),
+                    color: Color(0xFF09090B),
                     fontSize: 10,
                     fontWeight: FontWeight.bold,
                   ),
@@ -641,8 +641,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         Expanded(
           child: _StatChip(
             icon: Icons.play_circle_outline_rounded,
-            iconColor: const Color(0xFF8B5CF6), // Purple
-            bgColor: const Color(0xFFEDE9FE),
+            iconColor: const Color(0xFF52525B), // Gray
+            bgColor: const Color(0xFFF4F4F5),
             title: 'Ads Watched',
             value: '${dashboardState.adsWatchedToday}',
           ),
@@ -819,7 +819,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     vertical: AppSpacing.s + 2,
                   ),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFF8FAFC),
+                    color: const Color(0xFFFAFAFA),
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(color: AppColors.divider),
                   ),
@@ -839,7 +839,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                           fontWeight: FontWeight.w800,
                           letterSpacing: 1.5,
                           fontFeatures: [FontFeature.tabularFigures()],
-                          color: Color(0xFF1E293B),
+                          color: Color(0xFF27272A),
                         ),
                       ),
                     ],

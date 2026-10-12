@@ -307,7 +307,7 @@ class _HelpSupportScreenState extends State<HelpSupportScreen> {
                 padding: const EdgeInsets.all(AppSpacing.l),
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
-                    colors: [Color(0xFF0E7490), Color(0xFF155E75)],
+                    colors: [Color(0xFF18181B), Color(0xFF000000)],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),

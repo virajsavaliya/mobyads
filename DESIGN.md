@@ -1,14 +1,14 @@
 # MobyAds — DESIGN.md (canonical)
 
-Brand: trustworthy, calm, modern-fintech; rewarding but not casino-like. No slot-machine effects around money. Reward moment: short subtle confirmation only after server credit. One primary action per screen.
+Brand: monochrome black & white — calm, premium, fintech; rewarding but not casino-like. No slot-machine effects around money. Reward moment: short subtle confirmation only after server credit. One primary action per screen.
 
 ## Brand colors (from `lib/core/theme/app_colors.dart`)
 
-- Primary ocean teal: `0xFF0E7490` / dark `0xFF155E75` / light `0xFFE0F2FE` / container `0xFFBAE6FD`
-- Accent money green: `0xFF10B981` / dark `0xFF059669` / light `0xFFD1FAE5`; coin gold `0xFFF59E0B`
-- Neutrals: bg `0xFFF8FAFC`, surface/card `0xFFFFFFFF`, divider `0xFFE2E8F0`, border `0xFFCBD5E1`
-- Text: primary `0xFF0F172A`, secondary `0xFF64748B`, muted `0xFF94A3B8`, inverse `0xFFFFFFFF`
-- Semantic: success green `0xFF10B981`, warning amber `0xFFF59E0B`, error red `0xFFEF4444`, info blue `0xFF3B82F6`
+- Primary black ramp: `0xFF18181B` (zinc-900) / `0xFF000000` / tints `0xFFF4F4F5` / `0xFFE4E4E7`
+- Accent: same monochrome ramp; coin marker gray `0xFF71717A`
+- Neutrals: bg `0xFFFAFAFA`, surface/card `0xFFFFFFFF`, divider `0xFFE4E4E7`, border `0xFFD4D4D8`
+- Text: primary `0xFF09090B`, secondary `0xFF52525B`, muted `0xFFA1A1AA`, inverse `0xFFFFFFFF`
+- Exception: semantic status colors keep meaning (success `0xFF10B981`, warning `0xFFF59E0B`, error `0xFFEF4444`, info `0xFF3B82F6`) and are reserved for statuses only — never decoration. Dark ad slides use distinct zinc gradients so placements stay distinguishable without hue.
 
 ## Status vocabulary (fixed everywhere — same label, color, icon)
 
@@ -17,7 +17,7 @@ Withdrawals: PENDING (amber), APPROVED (emerald), PROCESSING (blue), PAID (emera
 
 Flutter: `AppColors.success/warning/error/info` + StatusChip in wallet screen. Web (Tailwind): emerald-50/700, amber-50/700-800, blue-50/700-800, slate-100/600-700, red-50/700 — see `StatusBadge.tsx`.
 
-Gap (to fix): `StatusBadge.tsx` lacks AVAILABLE, WITHDRAWN, REVERSED, PROCESSING, PAID cases — they fall to neutral default. Add them to match this file.
+Done: `StatusBadge.tsx` covers AVAILABLE, WITHDRAWN, REVERSED, PROCESSING, PAID, EXPIRED, DISABLED per this file.
 
 ## Type + spacing
 
@@ -35,3 +35,5 @@ Gap (to fix): `StatusBadge.tsx` lacks AVAILABLE, WITHDRAWN, REVERSED, PROCESSING
 - Legal: shared `LegalDocScreen` (banner + Contents TOC + anchor scroll); copy still placeholder pending review.
 - A11y: 48px header targets, `Open profile` semantics label.
 - Admin: dashboard 4 KPIs + needs-attention strip; withdrawals require decision reason + risk badges; users 6-column table; MCQ typed parser + skip-duplicates toggle; fraud page + live count (`lib/fraud.ts`); coupons page; audit log; settings env badge + TEST AdMob group; TEST badges wherever test IDs ship.
+
+- Polish (B&W): brand re-themed to monochrome zinc ramp; semantic status colors retained as the documented exception; ad slides use distinct zinc gradients.

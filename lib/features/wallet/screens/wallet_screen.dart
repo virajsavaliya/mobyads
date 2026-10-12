@@ -121,9 +121,9 @@ class WalletScreen extends ConsumerWidget {
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           colors: [
-            Color(0xFF0E7490), // Cyan 700
-            Color(0xFF155E75), // Cyan 800
-            Color(0xFF0F766E), // Teal 700
+            Color(0xFF18181B), // Zinc 900
+            Color(0xFF000000), // Black
+            Color(0xFF27272A), // Zinc 800
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -131,7 +131,7 @@ class WalletScreen extends ConsumerWidget {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF0E7490).withValues(alpha: 0.35),
+            color: const Color(0xFF18181B).withValues(alpha: 0.35),
             blurRadius: 18,
             offset: const Offset(0, 8),
           ),

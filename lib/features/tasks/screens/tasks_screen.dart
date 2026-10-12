@@ -85,8 +85,8 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
                     colors: [
-                      Color(0xFF0F766E),
-                      Color(0xFF0E7490),
+                      Color(0xFF27272A),
+                      Color(0xFF18181B),
                     ],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
@@ -94,7 +94,7 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
                   borderRadius: BorderRadius.circular(16),
                   boxShadow: [
                     BoxShadow(
-                      color: const Color(0xFF0E7490).withValues(alpha: 0.25),
+                      color: const Color(0xFF18181B).withValues(alpha: 0.25),
                       blurRadius: 10,
                       offset: const Offset(0, 4),
                     ),
@@ -270,7 +270,7 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
                         padding: const EdgeInsets.symmetric(vertical: 12),
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: const Color(0xFFF8FAFC),
+                          color: const Color(0xFFFAFAFA),
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(color: AppColors.divider),
                         ),
@@ -288,7 +288,7 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
                               style: const TextStyle(
                                 fontSize: 13,
                                 fontWeight: FontWeight.bold,
-                                color: Color(0xFF1E293B),
+                                color: Color(0xFF27272A),
                               ),
                             ),
                           ],

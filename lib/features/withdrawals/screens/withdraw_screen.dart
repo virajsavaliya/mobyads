@@ -596,8 +596,8 @@ class _WithdrawScreenState extends ConsumerState<WithdrawScreen> {
 
   Widget _buildSelectedPayoutCard(PayoutMethod method) {
     final isPaytm = method.isPaytm;
-    final iconColor = isPaytm ? const Color(0xFF0284C7) : AppColors.primary;
-    final iconBg = isPaytm ? const Color(0xFFE0F2FE) : AppColors.primaryLight;
+    final iconColor = isPaytm ? const Color(0xFF3F3F46) : AppColors.primary;
+    final iconBg = isPaytm ? const Color(0xFFF4F4F5) : AppColors.primaryLight;
     final iconData =
         isPaytm ? Icons.account_balance_wallet_rounded : Icons.account_balance_rounded;
 
@@ -608,7 +608,7 @@ class _WithdrawScreenState extends ConsumerState<WithdrawScreen> {
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: isPaytm
-              ? const Color(0xFF0284C7).withValues(alpha: 0.35)
+              ? const Color(0xFF3F3F46).withValues(alpha: 0.35)
               : AppColors.primary.withValues(alpha: 0.3),
           width: 1.2,
         ),
@@ -651,7 +651,7 @@ class _WithdrawScreenState extends ConsumerState<WithdrawScreen> {
                           vertical: 1.5,
                         ),
                         decoration: BoxDecoration(
-                          color: const Color(0xFFE0F2FE),
+                          color: const Color(0xFFF4F4F5),
                           borderRadius: BorderRadius.circular(4),
                         ),
                         child: const Text(
@@ -659,7 +659,7 @@ class _WithdrawScreenState extends ConsumerState<WithdrawScreen> {
                           style: TextStyle(
                             fontSize: 8.5,
                             fontWeight: FontWeight.w800,
-                            color: Color(0xFF0284C7),
+                            color: Color(0xFF3F3F46),
                             letterSpacing: 0.3,
                           ),
                         ),

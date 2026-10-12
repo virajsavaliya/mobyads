@@ -144,8 +144,8 @@ class PayoutMethodsScreen extends ConsumerWidget {
     PayoutMethod method,
   ) {
     final isPaytm = method.isPaytm;
-    final iconColor = isPaytm ? const Color(0xFF0284C7) : (method.isDefault ? AppColors.primary : AppColors.textSecondary);
-    final iconBg = isPaytm ? const Color(0xFFE0F2FE) : (method.isDefault ? AppColors.primaryLight : Colors.grey.shade100);
+    final iconColor = isPaytm ? const Color(0xFF3F3F46) : (method.isDefault ? AppColors.primary : AppColors.textSecondary);
+    final iconBg = isPaytm ? const Color(0xFFF4F4F5) : (method.isDefault ? AppColors.primaryLight : Colors.grey.shade100);
     final iconData = isPaytm ? Icons.account_balance_wallet_rounded : Icons.account_balance_rounded;
 
     return Container(
@@ -155,7 +155,7 @@ class PayoutMethodsScreen extends ConsumerWidget {
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: method.isDefault
-              ? (isPaytm ? const Color(0xFF0284C7).withValues(alpha: 0.5) : AppColors.primary.withValues(alpha: 0.4))
+              ? (isPaytm ? const Color(0xFF3F3F46).withValues(alpha: 0.5) : AppColors.primary.withValues(alpha: 0.4))
               : AppColors.divider,
           width: method.isDefault ? 1.5 : 1.0,
         ),
@@ -208,7 +208,7 @@ class PayoutMethodsScreen extends ConsumerWidget {
                           vertical: 1.5,
                         ),
                         decoration: BoxDecoration(
-                          color: const Color(0xFFE0F2FE),
+                          color: const Color(0xFFF4F4F5),
                           borderRadius: BorderRadius.circular(4),
                         ),
                         child: const Text(
@@ -216,7 +216,7 @@ class PayoutMethodsScreen extends ConsumerWidget {
                           style: TextStyle(
                             fontSize: 8.5,
                             fontWeight: FontWeight.w800,
-                            color: Color(0xFF0284C7),
+                            color: Color(0xFF3F3F46),
                             letterSpacing: 0.3,
                           ),
                         ),
