@@ -132,11 +132,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 _buildHeader(context, theme, userName),
                 const SizedBox(height: AppSpacing.m),
 
-                // 2. Balance hero: Available largest, Pending secondary, Withdraw CTA
+                // 2. Sponsored Ad Slider (top of page, fading slides)
+                _buildAdCarousel(context, theme),
+                const SizedBox(height: AppSpacing.m),
+
+                // 3. Balance hero: Available largest, Pending secondary, Withdraw CTA
                 _buildBalanceHero(context, theme, dashboardState),
                 const SizedBox(height: AppSpacing.m),
 
-                // 3. "Today's Task" Section (single next-task CTA)
+                // 4. "Today's Task" Section (single next-task CTA)
                 _buildTodayTaskSection(
                   context,
                   theme,
@@ -147,13 +151,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 ),
                 const SizedBox(height: AppSpacing.l),
 
-                // 4. Quick Stats Row (Total Earned / Tasks Today / Ads Watched)
+                // 5. Quick Stats Row (Total Earned / Tasks Today / Ads Watched)
                 _buildQuickStatsRow(theme, dashboardState),
                 const SizedBox(height: AppSpacing.l),
-
-                // 5. Sponsored Ad Carousel (demoted below money + task)
-                _buildAdCarousel(context, theme),
-                const SizedBox(height: AppSpacing.m),
 
                 // 6. Persistent Banner Ad (pinned placement above bottom nav)
                 const Center(
@@ -384,14 +384,26 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 });
               },
               itemBuilder: (context, index) {
-                final bannerAd = _carouselAds[index];
-                if (bannerAd != null) {
-                  return _buildAdMobSlide(
-                    index: index,
-                    bannerAd: bannerAd,
-                  );
-                }
-                return _buildNeutralPlaceholderSlide(index: index);
+                // Overlap fading: slides fade in/out with page offset
+                // instead of showing hard sliding borders.
+                final slide = AnimatedBuilder(
+                  animation: _adCarouselController,
+                  builder: (context, _) {
+                    double offset = 0;
+                    try {
+                      offset = _adCarouselController.page ?? index.toDouble();
+                    } catch (_) {
+                      offset = index.toDouble();
+                    }
+                    final fade =
+                        (1.0 - (offset - index).abs()).clamp(0.0, 1.0);
+                    return Opacity(
+                      opacity: 0.35 + 0.65 * fade,
+                      child: _buildSlide(context, index),
+                    );
+                  },
+                );
+                return slide;
               },
             ),
           ),
@@ -421,7 +433,17 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
-  /// Slide containing a live, independent BannerAd instance
+  /// Resolves the live or placeholder slide for a carousel index
+  Widget _buildSlide(BuildContext context, int index) {
+    final bannerAd = _carouselAds[index];
+    if (bannerAd != null) {
+      return _buildAdMobSlide(
+        index: index,
+        bannerAd: bannerAd,
+      );
+    }
+    return _buildNeutralPlaceholderSlide(index: index);
+  }
   Widget _buildAdMobSlide({
     required int index,
     required BannerAd bannerAd,
