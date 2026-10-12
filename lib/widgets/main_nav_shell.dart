@@ -1,5 +1,4 @@
 import 'dart:io' show Platform;
-import 'dart:ui' show ImageFilter;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
@@ -133,21 +132,18 @@ class _MainNavShellState extends State<MainNavShell> {
           ProfileScreen(),
         ],
       ),
-      bottomNavigationBar: ClipRect(
-        // Instagram / native iOS tab bar: translucent blur, hairline top
-        // edge, no floating box. Content scrolls underneath (extendBody).
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 22, sigmaY: 22),
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.78),
-              border: Border(
-                top: BorderSide(
-                  color: AppColors.divider.withValues(alpha: 0.9),
-                  width: 0.5,
-                ),
-              ),
+      bottomNavigationBar: Container(
+        // Solid translucent bar (no backdrop blur: Impeller blur over a
+        // PageView blanked the body on-device). Hairline top edge.
+        decoration: BoxDecoration(
+          color: Colors.white.withValues(alpha: 0.94),
+          border: Border(
+            top: BorderSide(
+              color: AppColors.divider.withValues(alpha: 0.9),
+              width: 0.5,
             ),
+          ),
+        ),
             padding: EdgeInsets.only(
               top: 8,
               bottom: MediaQuery.of(context).padding.bottom + 8,
@@ -189,8 +185,6 @@ class _MainNavShellState extends State<MainNavShell> {
               ],
             ),
           ),
-        ),
-      ),
     );
   }
 

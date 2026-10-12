@@ -381,25 +381,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 });
               },
               itemBuilder: (context, index) {
-                // Overlap fading: slides fade in/out with page offset
-                // instead of showing hard sliding borders.
-                final slide = AnimatedBuilder(
-                  animation: _adCarouselController,
-                  builder: (context, _) {
-                    double offset = 0;
-                    try {
-                      offset = _adCarouselController.page ?? index.toDouble();
-                    } catch (_) {
-                      offset = index.toDouble();
-                    }
-                    final fade = (1.0 - (offset - index).abs()).clamp(0.0, 1.0);
-                    return Opacity(
-                      opacity: 0.35 + 0.65 * fade,
-                      child: _buildSlide(context, index),
-                    );
-                  },
-                );
-                return slide;
+                return _buildSlide(context, index);
               },
             ),
           ),
